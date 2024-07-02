@@ -1,4 +1,4 @@
-package com.arquitecture.ecommerce.domain.models;
+package com.arquitecture.ecommerce.showProducts.domain.models;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.arquitecture.ecommerce.infrastructure.adapters;
+package com.arquitecture.ecommerce.showProducts.infrastructure.adapters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.arquitecture.ecommerce.infrastructure.mappers.CategoryMapper;
-import com.arquitecture.ecommerce.domain.models.Category;
-import com.arquitecture.ecommerce.domain.ports.CategoryPersistance;
-import com.arquitecture.ecommerce.infrastructure.entities.CategoryEntity;
-import com.arquitecture.ecommerce.infrastructure.repositories.CategoryRepository;
+import com.arquitecture.ecommerce.showProducts.infrastructure.mappers.CategoryMapper;
+import com.arquitecture.ecommerce.showProducts.domain.models.Category;
+import com.arquitecture.ecommerce.showProducts.domain.ports.CategoryPersistance;
+import com.arquitecture.ecommerce.showProducts.infrastructure.entities.CategoryEntity;
+import com.arquitecture.ecommerce.showProducts.infrastructure.repositories.CategoryRepository;
 
 @Repository
 public class CategoryJpa implements CategoryPersistance {

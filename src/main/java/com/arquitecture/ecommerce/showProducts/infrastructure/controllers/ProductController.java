@@ -1,4 +1,4 @@
-package com.arquitecture.ecommerce.infrastructure.controllers;
+package com.arquitecture.ecommerce.showProducts.infrastructure.controllers;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.arquitecture.ecommerce.application.usecases.CategoryService;
-import com.arquitecture.ecommerce.application.usecases.ProductService;
-import com.arquitecture.ecommerce.domain.models.Category;
-import com.arquitecture.ecommerce.domain.models.Product;
+import com.arquitecture.ecommerce.showProducts.application.usecases.CategoryService;
+import com.arquitecture.ecommerce.showProducts.application.usecases.ProductService;
+import com.arquitecture.ecommerce.showProducts.domain.models.Category;
+import com.arquitecture.ecommerce.showProducts.domain.models.Product;
 
 @Controller
 @RequestMapping("/products")

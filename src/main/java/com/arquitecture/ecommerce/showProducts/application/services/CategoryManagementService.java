@@ -1,13 +1,13 @@
-package com.arquitecture.ecommerce.application.services;
+package com.arquitecture.ecommerce.showProducts.application.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.arquitecture.ecommerce.domain.models.Category;
-import com.arquitecture.ecommerce.domain.ports.CategoryPersistance;
-import com.arquitecture.ecommerce.application.usecases.CategoryService;
+import com.arquitecture.ecommerce.showProducts.domain.models.Category;
+import com.arquitecture.ecommerce.showProducts.domain.ports.CategoryPersistance;
+import com.arquitecture.ecommerce.showProducts.application.usecases.CategoryService;
 
 @Service
 public class CategoryManagementService implements CategoryService {

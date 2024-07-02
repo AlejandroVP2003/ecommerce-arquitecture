@@ -1,8 +1,8 @@
-package com.arquitecture.ecommerce.application.usecases;
+package com.arquitecture.ecommerce.showProducts.application.usecases;
 
 import java.util.List;
 
-import com.arquitecture.ecommerce.domain.models.Product;
+import com.arquitecture.ecommerce.showProducts.domain.models.Product;
 
 public interface ProductService {
 

@@ -1,13 +1,13 @@
-package com.arquitecture.ecommerce.application.services;
+package com.arquitecture.ecommerce.showProducts.application.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.arquitecture.ecommerce.application.usecases.ProductService;
-import com.arquitecture.ecommerce.domain.models.Product;
-import com.arquitecture.ecommerce.domain.ports.ProductPersistance;
+import com.arquitecture.ecommerce.showProducts.application.usecases.ProductService;
+import com.arquitecture.ecommerce.showProducts.domain.models.Product;
+import com.arquitecture.ecommerce.showProducts.domain.ports.ProductPersistance;
 
 @Service
 public class ProductManagementService implements ProductService {

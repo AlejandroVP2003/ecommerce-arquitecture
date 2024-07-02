@@ -1,4 +1,4 @@
-package com.arquitecture.ecommerce.infrastructure.entities;
+package com.arquitecture.ecommerce.showProducts.infrastructure.entities;
 
 import java.util.Set;
 

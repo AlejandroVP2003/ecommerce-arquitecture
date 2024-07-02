@@ -1,10 +1,10 @@
-package com.arquitecture.ecommerce.infrastructure.mappers;
+package com.arquitecture.ecommerce.showProducts.infrastructure.mappers;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.arquitecture.ecommerce.domain.models.Category;
-import com.arquitecture.ecommerce.infrastructure.entities.CategoryEntity;
+import com.arquitecture.ecommerce.showProducts.domain.models.Category;
+import com.arquitecture.ecommerce.showProducts.infrastructure.entities.CategoryEntity;
 
 public class CategoryMapper {
 

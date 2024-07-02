@@ -1,9 +1,9 @@
-package com.arquitecture.ecommerce.infrastructure.mappers;
+package com.arquitecture.ecommerce.showProducts.infrastructure.mappers;
 
 import java.util.ArrayList;
 
-import com.arquitecture.ecommerce.domain.models.Product;
-import com.arquitecture.ecommerce.infrastructure.entities.ProductEntity;
+import com.arquitecture.ecommerce.showProducts.domain.models.Product;
+import com.arquitecture.ecommerce.showProducts.infrastructure.entities.ProductEntity;
 
 public class ProductMapper {
 

@@ -1,8 +1,8 @@
-package com.arquitecture.ecommerce.domain.ports;
+package com.arquitecture.ecommerce.showProducts.domain.ports;
 
 import java.util.List;
 
-import com.arquitecture.ecommerce.domain.models.Product;
+import com.arquitecture.ecommerce.showProducts.domain.models.Product;
 
 public interface ProductPersistance {
     
