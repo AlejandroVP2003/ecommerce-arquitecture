@@ -20,4 +20,9 @@ public class ProductManagementService implements ProductService {
         return productPersistance.getAllProducts();
     }
 
+    @Override
+    public Product listProduct(Long id) {
+        return productPersistance.getProductById(id);
+    }
+    
 }

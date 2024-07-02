@@ -30,4 +30,10 @@ public class ProductJpa implements ProductPersistance {
         return products;
     }
     
+    @Override
+    public Product getProductById(Long id) {
+        ProductEntity productEntity = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        return ProductMapper.toDomain(productEntity);
+    }
+    
 }

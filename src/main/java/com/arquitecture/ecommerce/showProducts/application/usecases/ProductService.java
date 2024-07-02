@@ -7,5 +7,6 @@ import com.arquitecture.ecommerce.showProducts.domain.models.Product;
 public interface ProductService {
 
     List<Product> listAllProducts();
+    Product listProduct(Long id);
     
 }
