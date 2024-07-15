@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Arequi-commerce</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="bg-warning-subtle" style="padding-top: 5%;">
+
+    <header class="p-3 mb-3 border-bottom border-2 border-black fixed-top bg-warning">
+        <div class="container-fluid">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li class="me-4"><a th:href="@{/}"><button type="button" class="btn btn-outline-dark border-2">Inicio</button></a></li>
+                    <li class="me-4"><a th:href="@{/buyProducts}"><button type="button" class="btn btn-outline-dark border-2">Comprar productos</button></a></li>
+                    <li class="me-4"><a href="#"><button type="button" class="btn btn-outline-dark border-2">Vender productos</button></a></li>
+                </ul>
+                <h2 class="position-absolute top-50 start-50 translate-middle">Bienvenido a Arequi-commerce</h2>
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-4" role="search" th:action="@{/buyProducts}" method="get">
+                    <input type="search" name="keyword" th:value="${keyword}" class="form-control border-2 border-black bg-warning-subtle" placeholder="Búsqueda..." aria-label="Search">
+                </form>
+                <div class="text-end">
+                    <a href="#" ><button type="button" class="btn btn-outline-dark border-2 me-3">Ingresar</button></a>
+                    <a href="#" ><button type="button" class="btn btn-outline-dark border-2">Registrarse</button></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-nowrap">
+        <div class="container-fluid" style="margin-bottom: 1.5%;">
+            <h4>Nuestro últimos productos agregados:</h4>
+        </div>
+        <div class="d-flex container-fluid justify-content-between">
+            <div class="card mb-3 border-2 border-black bg-warning bg-opacity-25" style="width: 18rem;" th:each="lastProduct : ${lastProducts}">
+                <div class="card-img-top container" style="height: 10rem; margin-bottom: 5%;">
+                    <img class="img-fluid rounded mx-auto d-block" src="https://imgv3.fotor.com/images/cover-photo-image/ai-generate-dragon-from-text-in-Fotor-AI-image-generator.jpg"  alt="..." style="margin-top: 5%; max-height: 100%; max-width: 100%; object-fit: cover;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${lastProduct.name}">Ultimo Producto 1</h5>
+                    <p class="card-text description" th:text="${lastProduct.description}">Descripcion 1</p>
+                    <div class="justify-content-between d-flex align-items-center">
+                        <a href="#" class="btn btn-warning border-black">Ver Producto</a>
+                        <span class="price"><strong>S/. </strong><strong th:text="${lastProduct.price}">0.0</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="margin-bottom: 1.5%; margin-top: 1.5%;">
+            <h4>O visita nuestras categorías:</h4>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-2 mb-3" th:each="category : ${categories}">
+                    <a th:href="@{/filterProducts(categoryId=${category.id})}" class="btn btn-warning border-2 border-black w-100" th:text="${category.name}">Categoria</a>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
