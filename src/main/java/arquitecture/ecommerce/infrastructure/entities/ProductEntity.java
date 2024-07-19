@@ -40,8 +40,8 @@ public class ProductEntity {
     @Column(nullable = false)
     private double price;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date releaseDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

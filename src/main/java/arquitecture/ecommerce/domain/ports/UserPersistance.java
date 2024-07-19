@@ -5,6 +5,6 @@ import arquitecture.ecommerce.domain.models.User;
 public interface UserPersistance {
     
     void saveUser(User user);
-    User getUserByEmail(String email);
+    User getUserByEmail(String email, String inputPassword);
 
 }

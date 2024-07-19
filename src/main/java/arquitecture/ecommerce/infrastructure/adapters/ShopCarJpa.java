@@ -1,6 +1,9 @@
 package arquitecture.ecommerce.infrastructure.adapters;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -13,6 +16,7 @@ import arquitecture.ecommerce.infrastructure.entities.ProductEntity;
 import arquitecture.ecommerce.infrastructure.entities.ShopCarEntity;
 import arquitecture.ecommerce.infrastructure.mappers.ProductMapper;
 import arquitecture.ecommerce.infrastructure.mappers.ShopCarMapper;
+import arquitecture.ecommerce.infrastructure.mappers.UserMapper;
 import arquitecture.ecommerce.infrastructure.repositories.ProductRepository;
 import arquitecture.ecommerce.infrastructure.repositories.ShopCarRepository;
 
@@ -104,5 +108,31 @@ public class ShopCarJpa implements ShopCarPersistance {
         ShopCarEntity shopCarEntity = ShopCarMapper.toEntity(shopCar);
         shopCarRepository.save(shopCarEntity);
     }
-    
+
+    @Override
+    public List<ShopCar> getAllCompletedCars(User client) {
+        List<ShopCarEntity> shopCarEntities = shopCarRepository.findByClientAndIsCompletedTrue(UserMapper.toEntity(client, false));
+        List<ShopCar> shopCars = new ArrayList<>();
+        for (ShopCarEntity entity : shopCarEntities) {
+            shopCars.add(ShopCarMapper.toDomain(entity));
+        }
+        return shopCars;
+    }
+
+    @Override
+    public List<ShopCar> getAllCompletedCarsBetweenDates(User client, LocalDate startDate, LocalDate endDate) {
+        List<ShopCarEntity> shopCarEntities = shopCarRepository.findByClientAndIsCompletedTrueAndCreationDateBetween(UserMapper.toEntity(client, false), startDate, endDate);
+        List<ShopCar> shopCars = new ArrayList<>();
+        for (ShopCarEntity entity : shopCarEntities) {
+            shopCars.add(ShopCarMapper.toDomain(entity));
+        }
+        return shopCars;
+    }
+
+    @Override
+    public ShopCar getSelectedShopCar(Long id) {
+        ShopCarEntity shopCarEntity = shopCarRepository.findById(id).orElseThrow();
+        return ShopCarMapper.toDomain(shopCarEntity);
+    }
+
 }

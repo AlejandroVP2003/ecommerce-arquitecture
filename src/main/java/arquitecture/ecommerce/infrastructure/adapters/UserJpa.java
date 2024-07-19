@@ -10,6 +10,7 @@ import arquitecture.ecommerce.domain.ports.UserPersistance;
 import arquitecture.ecommerce.infrastructure.entities.UserEntity;
 import arquitecture.ecommerce.infrastructure.mappers.UserMapper;
 import arquitecture.ecommerce.infrastructure.repositories.UserRepository;
+import arquitecture.ecommerce.infrastructure.security.PasswordUtils;
 
 @Repository
 public class UserJpa implements UserPersistance {
@@ -25,17 +26,23 @@ public class UserJpa implements UserPersistance {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new DuplicateKeyException("Correo ya existente.");
         }
+        String hashedPassword = PasswordUtils.hashPassword(user.getPassword());
+        user.setPassword(hashedPassword);
         userRepository.save(UserMapper.toEntity(user, false));
     }
 
     @Override
-    public User getUserByEmail(String email) throws NoSuchElementException {
+    public User getUserByEmail(String email, String inputPassword) throws NoSuchElementException {
         UserEntity userEntity = userRepository.findByEmail(email);
         if (userEntity == null) {
             throw new NoSuchElementException("No hay usuario con el email: " + email);
         }
-        
-        return UserMapper.toModel(userEntity, false);   
+
+        if (PasswordUtils.checkPassword(inputPassword, userEntity.getPassword())) {
+            return UserMapper.toModel(userEntity, true);
+        } else {
+            throw new IllegalArgumentException("Contraseña incorrecta.");
+        } 
     }
     
 }

@@ -75,3 +75,8 @@ input[type="number"]::-webkit-inner-spin-button {
     height: auto;
     cursor: pointer;
   }
+
+.table-custom th {
+    background-color: #ffbb00;
+    color: #000000;
+}

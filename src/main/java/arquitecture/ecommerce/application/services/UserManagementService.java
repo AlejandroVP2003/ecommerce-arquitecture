@@ -21,8 +21,8 @@ public class UserManagementService implements UserService {
     }
 
     @Override
-    public User loginUser(String email) {
-        return userPersistance.getUserByEmail(email);
+    public User loginUser(String email, String inputPassword) {
+        return userPersistance.getUserByEmail(email, inputPassword);
     }
     
 }

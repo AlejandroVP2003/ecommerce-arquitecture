@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import arquitecture.ecommerce.application.usecases.ProductService;
 import arquitecture.ecommerce.domain.models.Category;
 import arquitecture.ecommerce.domain.models.Product;
+import arquitecture.ecommerce.domain.models.User;
 import arquitecture.ecommerce.domain.ports.ProductPersistance;
 
 @Service
@@ -46,6 +47,16 @@ public class ProductManagementService implements ProductService {
     @Override
     public void addProduct(Product product) {
         productPersistance.saveProduct(product);
+    }
+
+    @Override
+    public void modifyProduct(Long productId, Category newCategory, int newStock, boolean newIsVisible) {
+        productPersistance.updateProduct(productId, newCategory, newStock, newIsVisible);
+    }
+
+    @Override
+    public List<Product> listProductsByOwner(User user) {
+        return productPersistance.getProductsByOwner(user);
     }
 
 }

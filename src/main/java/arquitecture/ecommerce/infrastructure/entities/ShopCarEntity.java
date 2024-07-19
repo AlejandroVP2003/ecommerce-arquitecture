@@ -1,6 +1,6 @@
 package arquitecture.ecommerce.infrastructure.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "shop_car")
@@ -36,9 +34,8 @@ public class ShopCarEntity {
     @Column(name = "quantity")
     private Map<Long, Integer> products = new HashMap<>();
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date creationDate;
+    private LocalDate creationDate;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -61,8 +58,8 @@ public class ShopCarEntity {
     public Map<Long, Integer> getProducts() { return products; }
     public void setProducts(Map<Long, Integer> products) { this.products = products; }
 
-    public Date getCreationDate() { return creationDate; }
-    public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
+    public LocalDate getCreationDate() { return creationDate; }
+    public void setCreationDate(LocalDate creationDate) { this.creationDate = creationDate; }
 
     public boolean isActive() { return isActive; }
     public void setActive(boolean isActive) { this.isActive = isActive; }

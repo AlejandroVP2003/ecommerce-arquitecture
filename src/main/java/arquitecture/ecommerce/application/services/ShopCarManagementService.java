@@ -1,5 +1,7 @@
 package arquitecture.ecommerce.application.services;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -52,6 +54,21 @@ public class ShopCarManagementService implements ShopCarService {
     @Override
     public void completePurchase(ShopCar shopCar, double total) {
         shopCarPersistance.completePurchase(shopCar, total);
+    }
+
+    @Override
+    public List<ShopCar> getCompletedShopCars(User client) {
+        return shopCarPersistance.getAllCompletedCars(client);
+    }
+
+    @Override
+    public List<ShopCar> getCompletedShopCarsBetweenDates(User client, LocalDate startDate, LocalDate endDate) {
+        return shopCarPersistance.getAllCompletedCarsBetweenDates(client, startDate, endDate);
+    }
+
+    @Override
+    public ShopCar listSelectedShopCar(Long id) {
+        return shopCarPersistance.getSelectedShopCar(id);
     }
     
 }

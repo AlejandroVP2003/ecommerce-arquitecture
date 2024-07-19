@@ -8,11 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import arquitecture.ecommerce.domain.models.Category;
 import arquitecture.ecommerce.domain.models.Product;
+import arquitecture.ecommerce.domain.models.User;
 import arquitecture.ecommerce.domain.ports.ProductPersistance;
-import arquitecture.ecommerce.infrastructure.entities.CategoryEntity;
 import arquitecture.ecommerce.infrastructure.entities.ProductEntity;
 import arquitecture.ecommerce.infrastructure.mappers.CategoryMapper;
 import arquitecture.ecommerce.infrastructure.mappers.ProductMapper;
+import arquitecture.ecommerce.infrastructure.mappers.UserMapper;
 import arquitecture.ecommerce.infrastructure.repositories.ProductRepository;
 
 @Repository
@@ -23,7 +24,7 @@ public class ProductJpa implements ProductPersistance {
 
     @Override
     public List<Product> getAllProducts() {
-        List<ProductEntity> productEntities = productRepository.findAll(); 
+        List<ProductEntity> productEntities = productRepository.findByIsVisibleTrue(); 
         List<Product> products = new ArrayList<>();
         for (ProductEntity entity : productEntities) {
             products.add(ProductMapper.toDomain(entity, true));
@@ -40,7 +41,7 @@ public class ProductJpa implements ProductPersistance {
 
     @Override
     public List<Product> getProductsByName(String name) {
-        List<ProductEntity> productEntities = productRepository.findByNameContaining(name);
+        List<ProductEntity> productEntities = productRepository.findByNameContainingAndIsVisibleTrue(name);
         List<Product> products = new ArrayList<>();
         for (ProductEntity entity : productEntities) {
             products.add(ProductMapper.toDomain(entity, true));
@@ -50,7 +51,7 @@ public class ProductJpa implements ProductPersistance {
 
     @Override
     public List<Product> getLastSixProducts() {
-        List<ProductEntity> productEntities = productRepository.findTop6ByOrderByReleaseDateDesc(); 
+        List<ProductEntity> productEntities = productRepository.findTop6ByIsVisibleTrueOrderByReleaseDateDesc(); 
         List<Product> products = new ArrayList<>();
         for (ProductEntity entity : productEntities) {
             products.add(ProductMapper.toDomain(entity, true));
@@ -60,8 +61,7 @@ public class ProductJpa implements ProductPersistance {
 
     @Override
     public List<Product> getProductsByCategory(Category category) {
-        CategoryEntity categoryEntity = CategoryMapper.toEntity(category);
-        List<ProductEntity> productEntities = productRepository.findByCategory(categoryEntity);
+        List<ProductEntity> productEntities = productRepository.findByCategoryAndIsVisibleTrue(CategoryMapper.toEntity(category));
         List<Product> products = new ArrayList<>();
         for (ProductEntity entity : productEntities) {
             products.add(ProductMapper.toDomain(entity, true));
@@ -74,4 +74,26 @@ public class ProductJpa implements ProductPersistance {
         ProductEntity productEntity = ProductMapper.toEntity(product, true);
         productRepository.save(productEntity);
     }
+
+    @Override
+    public void updateProduct(Long productId, Category newCategory, int newStock, boolean newIsVisible) {
+        ProductEntity productEntity = productRepository.findById(productId).orElseThrow();
+        productEntity.setCategory(CategoryMapper.toEntity(newCategory));
+        productEntity.setStock(newStock);
+        productEntity.setVisible(newIsVisible);
+        productRepository.save(productEntity);
+    }
+
+    @Override
+    public List<Product> getProductsByOwner(User owner) {
+        List<ProductEntity> productEntities = productRepository.findByOwner(UserMapper.toEntity(owner, true));
+        List<Product> products = new ArrayList<>();
+        for (ProductEntity entity : productEntities) {
+            products.add(ProductMapper.toDomain(entity, true));
+        }
+        return products;
+    }
+
+    
+        
 }

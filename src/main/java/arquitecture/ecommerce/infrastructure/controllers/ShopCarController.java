@@ -1,7 +1,11 @@
 package arquitecture.ecommerce.infrastructure.controllers;
 
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +54,7 @@ public class ShopCarController {
     public String addProductInCar(@RequestParam Long productId, @RequestParam int quantity, HttpSession session) {
         User client = (User) session.getAttribute("user");
         if (client == null) {
-            return "redirect:/login";
+            return "redirect:/loginView";
         }
 
         ShopCar shopCar = (ShopCar) session.getAttribute("shopCar");
@@ -77,7 +81,7 @@ public class ShopCarController {
     public String removeProductInCar(@RequestParam Long productId, HttpSession session) {
         User client = (User) session.getAttribute("user");
         if (client == null) {
-            return "redirect:/login";
+            return "redirect:/loginView";
         }
         Product product = productService.listProduct(productId);
         ShopCar shopCar = (ShopCar) session.getAttribute("shopCar");
@@ -92,7 +96,7 @@ public class ShopCarController {
     public String completePurchase(@RequestParam double total, HttpSession session) {
         User client = (User) session.getAttribute("user");
         if (client == null) {
-            return "redirect:/login";
+            return "redirect:/loginView";
         }
 
         ShopCar shopCar = (ShopCar) session.getAttribute("shopCar");
@@ -102,5 +106,44 @@ public class ShopCarController {
         }
 
         return "purchaseSuccess";
+    }
+
+    @GetMapping("/viewShopCars")
+    public String viewCompletedShopCars(@RequestParam(required = false) Long selectedCarId,
+                                        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+                                        HttpSession session, Model model) {
+        User client = (User) session.getAttribute("user");
+
+        if (client == null) {
+            return "redirect:/loginView";
+        }
+
+        List<ShopCar> completedShopCars;
+
+        if (startDate != null && endDate != null) {
+            completedShopCars = shopCarService.getCompletedShopCarsBetweenDates(client, startDate, endDate);
+        } else {
+            completedShopCars = shopCarService.getCompletedShopCars(client);
+        }
+
+        model.addAttribute("completedShopCars", completedShopCars);
+
+        if (selectedCarId != null) {
+            ShopCar shopCar = shopCarService.listSelectedShopCar(selectedCarId);
+            if (shopCar != null) {
+                Map<Product, Integer> productsInCar = shopCarService.listProductsInShopCart(shopCar);
+                model.addAttribute("productsInCar", productsInCar);
+            } else {
+                model.addAttribute("productsInCar", Collections.emptyMap());
+            }
+        } else {
+            model.addAttribute("productsInCar", Collections.emptyMap());
+        }
+
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+
+        return "viewShopCars";
     }
 }

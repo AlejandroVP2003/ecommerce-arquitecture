@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import arquitecture.ecommerce.application.usecases.UserService;
 import arquitecture.ecommerce.domain.models.User;
+import arquitecture.ecommerce.infrastructure.security.PasswordUtils;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -42,7 +43,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginView")
     public String loginView(Model model) {
         model.addAttribute("user", new User());
         return "loginUser";
@@ -51,8 +52,8 @@ public class UserController {
     @PostMapping("/loginUser")
     public String loginUser(@ModelAttribute User user, Model model, HttpSession session) {
         try {
-            User userLogged = userService.loginUser(user.getEmail());
-            if (userLogged != null && userLogged.getPassword().equals(user.getPassword())) {
+            User userLogged = userService.loginUser(user.getEmail(), user.getPassword());
+            if (PasswordUtils.checkPassword(user.getPassword(), userLogged.getPassword())) {
                 session.setAttribute("user", userLogged);
                 return "redirect:/";
             } else {
@@ -69,7 +70,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/logoutUser")
     public String logoutUser(HttpSession session) {
         session.invalidate();
         return "redirect:/";

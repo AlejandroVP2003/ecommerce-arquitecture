@@ -5,6 +5,6 @@ import arquitecture.ecommerce.domain.models.User;
 public interface UserService {
     
     void addUser(User user);
-    User loginUser(String email);
+    User loginUser(String email, String inputPassword);
 
 }

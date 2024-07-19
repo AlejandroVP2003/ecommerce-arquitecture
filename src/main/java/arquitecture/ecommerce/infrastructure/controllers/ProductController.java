@@ -107,13 +107,13 @@ public class ProductController {
     }
 
     @PostMapping("/addProduct")
-    public String addProduct(@ModelAttribute Product product, @RequestParam("categoryId") String categoryId, @RequestParam("images") List<MultipartFile> files, HttpSession session) {
+    public String addProduct(@ModelAttribute Product product, @RequestParam("categoryId") Long categoryId, @RequestParam("images") List<MultipartFile> files, HttpSession session) {
         User owner = (User) session.getAttribute("user");
         if (owner == null) {
-            return "redirect:/login";
+            return "redirect:/loginView";
         }
 
-        Category category = categoryService.listCategoryById(Long.parseLong(categoryId));
+        Category category = categoryService.listCategoryById(categoryId);
 
         List<String> imagePaths = new ArrayList<>();
         for (MultipartFile file : files) {
@@ -127,6 +127,38 @@ public class ProductController {
         productService.addProduct(product);
 
         return "redirect:/buyProducts";
+    }
+
+    @GetMapping("/viewProductsSeller")
+    public String viewProductsInInventory(Model model, HttpSession session) {
+        User owner = (User) session.getAttribute("user");
+        if (owner == null) {
+            return "redirect:/loginView";
+        }
+
+        List<Product> products = productService.listProductsByOwner(owner);
+        model.addAttribute("products", products);
+        return "productsInventory";
+    }
+
+    @GetMapping("/modifyProductForm")
+    public String viewModifyProductForm(@RequestParam("productId") Long productId, Model model) {
+        Product product = productService.listProduct(productId);
+        List<Category> categories = categoryService.listAllCategories();
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
+        return "modifyProduct";
+    }
+
+    @PostMapping("/modifyProduct")
+    public String modifyProduct(@RequestParam("productId") Long productId, @RequestParam("stock") int stock, @RequestParam("categoryId") Long categoryId,
+                                @RequestParam(value = "isVisible", required = false) Boolean isVisible) {
+
+        Category category = categoryService.listCategoryById(categoryId);
+        boolean visible = (isVisible != null) ? isVisible : false;
+
+        productService.modifyProduct(productId, category, stock, visible);
+        return "redirect:/";
     }
 
 }

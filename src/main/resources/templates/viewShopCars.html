@@ -7,7 +7,8 @@
     <title>Arequi-commerce</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+
 </head>
 <body class="bg-warning-subtle" style="padding-top: 5%;">
 
@@ -45,39 +46,83 @@
         </div>
     </header>
 
-    <main class="flex-nowrap">
-        <div class="container-fluid" style="margin-bottom: 1.5%;">
-            <h4>Nuestro últimos productos agregados:</h4>
-        </div>
-        <div class="d-flex container-fluid justify-content-between">
-            <div class="card mb-3 border-2 border-black bg-warning bg-opacity-25" style="width: 18rem;" th:each="lastProduct : ${lastProducts}">
-                <div class="card-img-top container" style="height: 10rem; margin-bottom: 5%;">
-                    <img class="img-fluid rounded mx-auto d-block border border-black" th:src="@{'/uploads/' + ${lastProduct.imagesPath.get(0)}}"  alt="..." style="margin-top: 5%; max-height: 100%; max-width: 100%; object-fit: cover;">
+    <main class="d-flex">
+
+        <div>
+            <div class="border border-black border-2 bg-warning bg-opacity-50" style="width: 20%; max-height: 41.5vmax; overflow-y: auto; position: fixed; left: 18%;">
+                
+                <div class="mt-3 px-3 d-flex w-100 justify-content-center">
+                    <h4 class="">Carritos de compra</h4>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${lastProduct.name}">Ultimo Producto 1</h5>
-                    <p class="card-text description" th:text="${lastProduct.description}">Descripcion 1</p>
-                    <div class="justify-content-between d-flex align-items-center">
-                        <a href="#" th:href="@{/viewProduct(id=${lastProduct.id})}" class="btn btn-warning border-black">Ver Producto</a>
-                        <span class="price"><strong>S/. </strong><strong th:text="${lastProduct.price}">0.0</strong></span>
+    
+                <div class="container" style="padding-top: -1;">
+                    <hr class="border-2 border-black">
+                </div>
+
+                <div>
+                    <form action="#" th:action="@{/viewShopCars}" method="get">
+                        <div class="input-group mb-3 ps-4 row">
+                            <span class="input-group-text col-6 border-black bg-warning bg-opacity-75"><strong>Fecha de inicio:</strong></span>
+                            <input type="date" class="form-control col-6 border-black bg-warning-subtle" id="startDate" name="startDate" th:value="${startDate}">
+                        </div>
+                        <div class="input-group mb-3 ps-4 row">
+                            <span class="input-group-text col-6 border-black bg-warning bg-opacity-75"><strong>Fecha de fin:</strong></span>
+                            <input type="date" class="form-control col-6 border-black bg-warning-subtle" id="endDate" name="endDate" th:value="${endDate}">
+                        </div>
+                
+                        <div class="px-4 justify-content-between d-flex">
+                            <button class="btn btn-warning border border-black w-100" type="submit">Filtrar carritos por fecha</button>
+                        </div>   
+                    </form>
+                    <form action="#" th:action="@{/viewShopCars}" method="get">
+                        <div class="px-4 justify-content-between d-flex mt-2">
+                            <input type="hidden" name="startDate">
+                            <input type="hidden" name="endDate">
+                            <button class="btn btn-warning border border-black w-100" type="submit">Limpiar</button>
+                        </div> 
+                    </form>
+                </div>
+
+                <div class="container">
+                    <hr class="border-2 border-black">
+                </div>
+    
+                <div th:if="${completedShopCars}" class="mb-3 px-3" th:each="shopCar : ${completedShopCars}">
+                    <form th:action="@{/viewShopCars}" method="get" class="w-100">
+                        <input type="hidden" name="selectedCarId" th:value="${shopCar.id}">
+                        <input type="hidden" name="startDate" th:value="${startDate}">
+                        <input type="hidden" name="endDate" th:value="${endDate}">
+                        <button type="submit" class="d-flex justify-content-between align-items-center btn border border-black w-100">
+                            <h5 class="mb-0" th:text="${shopCar.creationDate}">Carrito 1</h5>
+                            <h5 class="mb-0" th:text="${'S/. ' + shopCar.total}"></h5>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="border border-black border-2 bg-warning bg-opacity-50" style="width: 50%; height: 44vmax; overflow-y: auto; position: fixed; right: 10%;">
+            <div th:if="${productsInCar != null}">
+                <div th:each="productInCar : ${productsInCar.entrySet()}" class="border border-black rounded m-3 d-flex" style="height: 20%;">
+                    <div class="d-flex align-items-center justify-content-center" style="height: 100%; width: 25%;">
+                        <img th:src="@{'/uploads/' + ${productInCar.key.imagesPath.get(0)}}" alt="Product Image" class="border rounded-3 border-black" style="height: 90%; width: 90%;">
+                    </div>
+                    <div class="w-100 p-3 d-flex flex-column">
+                        <h4 th:text="${productInCar.key.name}">Nombre de Producto</h4>
+                        <p th:text="${productInCar.key.description}" class="desc">Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. Descripcion larga. </p>
+                        <div class="d-flex justify-content-between mt-auto">
+                            <div class="d-flex w-100 justify-content-between" >
+                                <h6>Cantidad: <span th:text="${productInCar.value}">1</span></h5>
+                                <h6 class="ms-4">Precio Unitario: <span th:text="${productInCar.key.price}">0.00</span></h5>
+                                <h6 class="ms-4">Estado: <span th:text="${productInCar.key.productCondition}">Estado</span></h5>
+                                <h6 class="ms-4">Precio Final: <span th:text="${productInCar.key.price * productInCar.value}">0.00</span></h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </div>    
         </div>
-        <div class="container-fluid" style="margin-bottom: 1.5%; margin-top: 1.5%;">
-            <h4>O visita nuestras categorías:</h4>
-        </div>
-
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-md-2 mb-3" th:each="category : ${categories}">
-                    <a th:href="@{/filterProducts(categoryId=${category.id})}" class="btn btn-warning border-2 border-black w-100" th:text="${category.name}">Categoria</a>
-                </div>
-            </div>
-        </div>
-        
     </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

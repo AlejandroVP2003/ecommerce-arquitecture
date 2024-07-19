@@ -1,5 +1,7 @@
 package arquitecture.ecommerce.application.usecases;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import arquitecture.ecommerce.domain.models.Product;
@@ -17,5 +19,9 @@ public interface ShopCarService {
     void deactivateShopCar(ShopCar shopCar);
     void removeProductInShopCar(ShopCar shopCar, Product product);
     void completePurchase(ShopCar shopCar, double total);
+
+    List<ShopCar> getCompletedShopCars(User client);
+    List<ShopCar> getCompletedShopCarsBetweenDates(User client, LocalDate startDate, LocalDate endDate);
+    ShopCar listSelectedShopCar(Long id);
 
 } 
