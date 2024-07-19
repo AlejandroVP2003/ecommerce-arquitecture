@@ -15,17 +15,27 @@
         <div class="container-fluid">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li class="me-4"><a th:href="@{/}"><button type="button" class="btn btn-outline-dark border-2">Inicio</button></a></li>
-                    <li class="me-4"><a th:href="@{/buyProducts}"><button type="button" class="btn btn-outline-dark border-2">Comprar productos</button></a></li>
-                    <li class="me-4"><a href="#"><button type="button" class="btn btn-outline-dark border-2">Vender productos</button></a></li>
+                    <li class="me-4"><a href="#" th:href="@{/}"><button type="button" class="btn btn-outline-dark border-2">Inicio</button></a></li>
+                    <li class="me-4"><a href="#" th:href="@{/buyProducts}"><button type="button" class="btn btn-outline-dark border-2">Comprar productos</button></a></li>
+                    <li th:if="${session.user != null}" class="me-4"><a href="#" th:href="@{/sellProduct}"><button type="button" class="btn btn-outline-dark border-2">Vender productos</button></a></li>
                 </ul>
                 <h2 class="position-absolute top-50 start-50 translate-middle">Bienvenido a Arequi-commerce</h2>
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-4" role="search" th:action="@{/buyProducts}" method="get">
                     <input type="search" name="keyword" th:value="${keyword}" class="form-control border-2 border-black bg-warning-subtle" placeholder="Búsqueda..." aria-label="Search">
                 </form>
-                <div class="text-end">
-                    <a href="#" ><button type="button" class="btn btn-outline-dark border-2 me-3">Ingresar</button></a>
-                    <a href="#" ><button type="button" class="btn btn-outline-dark border-2">Registrarse</button></a>
+                <div th:unless="${session.user != null}" class="text-end">
+                    <a th:href="@{/login}" ><button type="button" class="btn btn-outline-dark border-2 me-3">Ingresar</button></a>
+                    <a th:href="@{/register}"><button type="button" class="btn btn-outline-dark border-2">Registrarse</button></a>
+                </div>
+                <div th:if="${session.user != null}" class="dropdown text-end">
+                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://w7.pngwing.com/pngs/741/68/png-transparent-user-computer-icons-user-miscellaneous-cdr-rectangle-thumbnail.png" alt="mdo" width="32" height="32" class="rounded-circle border border-2 border-black">
+                    </a>
+                    <ul class="dropdown-menu text-small mt-2">
+                        <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/logout}">Cerrar sesión</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -88,7 +98,7 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="../scripts.js"></script>
+    <script src="../scripts/scripts.js"></script>
     
 </body>
 </html>

@@ -11,6 +11,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     List<ProductEntity> findByNameContaining(String keyword);
     List<ProductEntity> findTop6ByOrderByReleaseDateDesc();
-    List<ProductEntity> findByCategoryEntity(CategoryEntity categoryEntity);
+    List<ProductEntity> findByCategory(CategoryEntity categoryEntity);
 
 }

@@ -5,7 +5,7 @@ import arquitecture.ecommerce.infrastructure.entities.ProductEntity;
 
 public class ProductMapper {
 
-    public static Product toDomain(ProductEntity entity) {
+    public static Product toDomain(ProductEntity entity, boolean includeOwner) {
         if (entity == null) {
             return null;
         }
@@ -18,7 +18,6 @@ public class ProductMapper {
         product.setStock(entity.getStock());
         product.setPrice(entity.getPrice());
         product.setReleaseDate(entity.getReleaseDate());
-        product.setUpdateDate(entity.getUpdateDate());
         product.setBrand(entity.getBrand());
         product.setWeight(entity.getWeight());
         product.setLength(entity.getLength());
@@ -29,42 +28,48 @@ public class ProductMapper {
         product.setVisible(entity.isVisible());
         product.setImagesPath(entity.getImagesPath());
 
-        if (entity.getCategoryEntity() != null) {
-            product.setCategory(CategoryMapper.toDomain(entity.getCategoryEntity()));
+        if (entity.getCategory() != null) {
+            product.setCategory(CategoryMapper.toModel(entity.getCategory()));
+        }
+
+        if (includeOwner && entity.getOwner() != null) {
+            product.setOwner(UserMapper.toModel(entity.getOwner(), false));
         }
 
         return product;
     }
 
-    public static ProductEntity toEntity(Product domain) {
-        if (domain == null) {
+    public static ProductEntity toEntity(Product model, boolean includeOwner) {
+        if (model == null) {
             return null;
         }
 
         ProductEntity entity = new ProductEntity();
-        entity.setId(domain.getId());
-        entity.setSku(domain.getSku());
-        entity.setName(domain.getName());
-        entity.setDescription(domain.getDescription());
-        entity.setStock(domain.getStock());
-        entity.setPrice(domain.getPrice());
-        entity.setReleaseDate(domain.getReleaseDate());
-        entity.setUpdateDate(domain.getUpdateDate());
-        entity.setBrand(domain.getBrand());
-        entity.setWeight(domain.getWeight());
-        entity.setLength(domain.getLength());
-        entity.setWidth(domain.getWidth());
-        entity.setHeight(domain.getHeight());
-        entity.setProductCondition(domain.getProductCondition());
-        entity.setRating(domain.getRating());
-        entity.setVisible(domain.isVisible());
-        entity.setImagesPath(domain.getImagesPath());
+        entity.setId(model.getId());
+        entity.setSku(model.getSku());
+        entity.setName(model.getName());
+        entity.setDescription(model.getDescription());
+        entity.setStock(model.getStock());
+        entity.setPrice(model.getPrice());
+        entity.setReleaseDate(model.getReleaseDate());
+        entity.setBrand(model.getBrand());
+        entity.setWeight(model.getWeight());
+        entity.setLength(model.getLength());
+        entity.setWidth(model.getWidth());
+        entity.setHeight(model.getHeight());
+        entity.setProductCondition(model.getProductCondition());
+        entity.setRating(model.getRating());
+        entity.setVisible(model.isVisible());
+        entity.setImagesPath(model.getImagesPath());
 
-        if (domain.getCategory() != null) {
-            entity.setCategoryEntity(CategoryMapper.toEntity(domain.getCategory()));
+        if (model.getCategory() != null) {
+            entity.setCategory(CategoryMapper.toEntity(model.getCategory()));
+        }
+
+        if (includeOwner && model.getOwner() != null) {
+            entity.setOwner(UserMapper.toEntity(model.getOwner(), false));
         }
 
         return entity;
     }
-
 }

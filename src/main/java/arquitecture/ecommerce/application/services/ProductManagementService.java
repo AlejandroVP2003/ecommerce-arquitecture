@@ -2,7 +2,6 @@ package arquitecture.ecommerce.application.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import arquitecture.ecommerce.application.usecases.ProductService;
@@ -13,8 +12,11 @@ import arquitecture.ecommerce.domain.ports.ProductPersistance;
 @Service
 public class ProductManagementService implements ProductService {
 
-    @Autowired
-    private ProductPersistance productPersistance;
+    private final ProductPersistance productPersistance;
+
+    public ProductManagementService(ProductPersistance productPersistance) {
+        this.productPersistance = productPersistance;
+    }
 
     @Override
     public List<Product> listAllProducts() {
@@ -39,6 +41,11 @@ public class ProductManagementService implements ProductService {
     @Override
     public List<Product> listProductsByCategory(Category category) {
         return productPersistance.getProductsByCategory(category);
+    }
+
+    @Override
+    public void addProduct(Product product) {
+        productPersistance.saveProduct(product);
     }
 
 }

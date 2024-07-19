@@ -25,7 +25,7 @@ public class CategoryJpa implements CategoryPersistance {
         List<CategoryEntity> categoryEntities = categoryRepository.findByParentCategoryIsNull();
         List<Category> categories = new ArrayList<>();
         for (CategoryEntity categoryEntity : categoryEntities) {
-            categories.add(CategoryMapper.toDomain(categoryEntity));
+            categories.add(CategoryMapper.toModel(categoryEntity));
         }
         return categories;
     }
@@ -35,9 +35,15 @@ public class CategoryJpa implements CategoryPersistance {
         List<CategoryEntity> categoryEntities = categoryRepository.findAll();
         List<Category> categories = new ArrayList<>();
         for (CategoryEntity categoryEntity : categoryEntities) {
-            categories.add(CategoryMapper.toDomain(categoryEntity));
+            categories.add(CategoryMapper.toModel(categoryEntity));
         }
         return categories;
+    }
+
+    @Override
+    public Category getCategoryById(Long id) {
+        CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found"));
+        return CategoryMapper.toModel(categoryEntity);
     }
 
 }

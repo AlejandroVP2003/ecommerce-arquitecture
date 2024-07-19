@@ -8,29 +8,28 @@ import arquitecture.ecommerce.infrastructure.entities.CategoryEntity;
 
 public class CategoryMapper {
 
-    public static Category toDomain(CategoryEntity entity) {
-        return toDomain(entity, new HashSet<>());
+    public static Category toModel(CategoryEntity entity) {
+        return toModel(entity, new HashSet<>());
     }
     
-    private static Category toDomain(CategoryEntity entity, Set<Long> visitedEntities) {
+    private static Category toModel(CategoryEntity entity, Set<Long> visitedEntities) {
         if (entity == null || visitedEntities.contains(entity.getId())) {
             return null;
         }
-    
         visitedEntities.add(entity.getId());
-    
+
         Category category = new Category();
         category.setId(entity.getId());
         category.setName(entity.getName());
     
         if (entity.getParentCategory() != null) {
-            category.setParentCategory(toDomain(entity.getParentCategory(), visitedEntities));
+            category.setParentCategory(toModel(entity.getParentCategory(), visitedEntities));
         }
     
         if (entity.getSubcategories() != null && !entity.getSubcategories().isEmpty()) {
             Set<Category> subcategories = new HashSet<>();
             for (CategoryEntity subcategoryEntity : entity.getSubcategories()) {
-                subcategories.add(toDomain(subcategoryEntity, visitedEntities));
+                subcategories.add(toModel(subcategoryEntity, visitedEntities));
             }
             category.setSubcategories(subcategories);
         }

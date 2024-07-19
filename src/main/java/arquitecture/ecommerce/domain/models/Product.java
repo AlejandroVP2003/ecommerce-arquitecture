@@ -1,6 +1,8 @@
 package arquitecture.ecommerce.domain.models;
 
+import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 public class Product {
     
@@ -11,8 +13,8 @@ public class Product {
     private int stock;
     private double price;
     private Date releaseDate;
-    private Date updateDate;
     private Category category;
+    private User owner;
     private String brand;
     private Double weight;
     private Double length;
@@ -21,9 +23,11 @@ public class Product {
     private String productCondition;
     private Double rating;
     private boolean isVisible;
-    private String imagesPath;
+    private List<String> imagesPath;
     
     public Product() {
+        this.releaseDate = Date.from(Instant.now());
+        this.isVisible = true;
     }
 
     public Long getId() {
@@ -82,20 +86,20 @@ public class Product {
         this.releaseDate = releaseDate;
     }
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public String getBrand() {
@@ -162,14 +166,12 @@ public class Product {
         this.isVisible = isVisible;
     }
 
-    public String getImagesPath() {
+    public List<String> getImagesPath() {
         return imagesPath;
     }
 
-    public void setImagesPath(String imagesPath) {
+    public void setImagesPath(List<String> imagesPath) {
         this.imagesPath = imagesPath;
     }
-
-    
 
 }

@@ -1,8 +1,21 @@
 package arquitecture.ecommerce.infrastructure.entities;
 
-import jakarta.persistence.*;
-
 import java.util.Date;
+import java.util.List;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "product")
@@ -10,7 +23,6 @@ public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -32,13 +44,13 @@ public class ProductEntity {
     @Column(nullable = false)
     private Date releaseDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = true)
-    private Date updateDate;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
-    private CategoryEntity categoryEntity;
+    private CategoryEntity category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = true)
+    private UserEntity owner;
 
     @Column(nullable = true)
     private String brand;
@@ -64,8 +76,10 @@ public class ProductEntity {
     @Column(nullable = false)
     private boolean isVisible;
 
-    @Column(nullable = false)
-    private String imagesPath;
+    @ElementCollection
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "image_path")
+    private List<String> imagesPath;
 
     public ProductEntity() {
     }
@@ -126,20 +140,20 @@ public class ProductEntity {
         this.releaseDate = releaseDate;
     }
 
-    public Date getUpdateDate() {
-        return updateDate;
+    public CategoryEntity getCategory() {
+        return category;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 
-    public CategoryEntity getCategoryEntity() {
-        return categoryEntity;
+    public UserEntity getOwner() {
+        return owner;
     }
 
-    public void setCategoryEntity(CategoryEntity categoryEntity) {
-        this.categoryEntity = categoryEntity;
+    public void setOwner(UserEntity owner) {
+        this.owner = owner;
     }
 
     public String getBrand() {
@@ -206,11 +220,11 @@ public class ProductEntity {
         this.isVisible = isVisible;
     }
 
-    public String getImagesPath() {
+    public List<String> getImagesPath() {
         return imagesPath;
     }
 
-    public void setImagesPath(String imagesPath) {
+    public void setImagesPath(List<String> imagesPath) {
         this.imagesPath = imagesPath;
     }
 

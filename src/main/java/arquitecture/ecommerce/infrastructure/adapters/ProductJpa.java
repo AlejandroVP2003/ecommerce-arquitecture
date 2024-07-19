@@ -26,7 +26,7 @@ public class ProductJpa implements ProductPersistance {
         List<ProductEntity> productEntities = productRepository.findAll(); 
         List<Product> products = new ArrayList<>();
         for (ProductEntity entity : productEntities) {
-            products.add(ProductMapper.toDomain(entity));
+            products.add(ProductMapper.toDomain(entity, true));
         }
 
         return products;
@@ -35,7 +35,7 @@ public class ProductJpa implements ProductPersistance {
     @Override
     public Product getProductById(Long id) {
         ProductEntity productEntity = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
-        return ProductMapper.toDomain(productEntity);
+        return ProductMapper.toDomain(productEntity, true);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ProductJpa implements ProductPersistance {
         List<ProductEntity> productEntities = productRepository.findByNameContaining(name);
         List<Product> products = new ArrayList<>();
         for (ProductEntity entity : productEntities) {
-            products.add(ProductMapper.toDomain(entity));
+            products.add(ProductMapper.toDomain(entity, true));
         }
         return products;
     }
@@ -53,7 +53,7 @@ public class ProductJpa implements ProductPersistance {
         List<ProductEntity> productEntities = productRepository.findTop6ByOrderByReleaseDateDesc(); 
         List<Product> products = new ArrayList<>();
         for (ProductEntity entity : productEntities) {
-            products.add(ProductMapper.toDomain(entity));
+            products.add(ProductMapper.toDomain(entity, true));
         }
         return products;
     }
@@ -61,11 +61,17 @@ public class ProductJpa implements ProductPersistance {
     @Override
     public List<Product> getProductsByCategory(Category category) {
         CategoryEntity categoryEntity = CategoryMapper.toEntity(category);
-        List<ProductEntity> productEntities = productRepository.findByCategoryEntity(categoryEntity);
+        List<ProductEntity> productEntities = productRepository.findByCategory(categoryEntity);
         List<Product> products = new ArrayList<>();
         for (ProductEntity entity : productEntities) {
-            products.add(ProductMapper.toDomain(entity));
+            products.add(ProductMapper.toDomain(entity, true));
         }
         return products;
+    }
+
+    @Override
+    public void saveProduct(Product product) {
+        ProductEntity productEntity = ProductMapper.toEntity(product, true);
+        productRepository.save(productEntity);
     }
 }

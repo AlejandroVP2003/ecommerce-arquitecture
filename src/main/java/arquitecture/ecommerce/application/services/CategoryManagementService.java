@@ -27,4 +27,9 @@ public class CategoryManagementService implements CategoryService {
         return categoryPersistance.getAllCategories();
     }
 
+    @Override
+    public Category listCategoryById(Long id) {
+        return categoryPersistance.getCategoryById(id);
+    }
+
 }

@@ -9,4 +9,5 @@ public interface CategoryPersistance {
     List<Category> getAllMainCategories();
     List<Category> getAllCategories();
 
+    Category getCategoryById(Long id);
 }

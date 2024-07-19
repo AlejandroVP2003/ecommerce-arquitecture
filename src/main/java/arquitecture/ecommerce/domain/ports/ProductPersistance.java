@@ -13,4 +13,6 @@ public interface ProductPersistance {
 
     List<Product> getLastSixProducts();
     List<Product> getProductsByCategory(Category category);
+
+    void saveProduct(Product product);
 }

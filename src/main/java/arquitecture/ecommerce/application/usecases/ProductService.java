@@ -14,4 +14,6 @@ public interface ProductService {
     List<Product> listLastSixProducts();
     List<Product> listProductsByCategory(Category category);
 
+    void addProduct(Product product);
+
 }

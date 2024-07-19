@@ -8,5 +8,7 @@ public interface CategoryService {
 
     List<Category> listMainCategories();
     List<Category> listAllCategories();
+
+    Category listCategoryById(Long id);
     
 }
