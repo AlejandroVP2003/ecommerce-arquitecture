@@ -25,7 +25,6 @@ public class UserJpa implements UserPersistance {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new DuplicateKeyException("Correo ya existente.");
         }
-        
         userRepository.save(UserMapper.toEntity(user, false));
     }
 
@@ -35,6 +34,7 @@ public class UserJpa implements UserPersistance {
         if (userEntity == null) {
             throw new NoSuchElementException("No hay usuario con el email: " + email);
         }
+        
         return UserMapper.toModel(userEntity, false);   
     }
     

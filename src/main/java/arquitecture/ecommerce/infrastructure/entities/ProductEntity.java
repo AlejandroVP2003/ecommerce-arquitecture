@@ -84,150 +84,58 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getSku() { return sku; }
+    public void setSku(String sku) { this.sku = sku; }
 
-    public String getSku() {
-        return sku;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public String getName() {
-        return name;
-    }
+    public int getStock() { return stock; }
+    public void setStock(int stock) { this.stock = stock; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 
-    public String getDescription() {
-        return description;
-    }
+    public Date getReleaseDate() { return releaseDate; }
+    public void setReleaseDate(Date releaseDate) { this.releaseDate = releaseDate; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public CategoryEntity getCategory() { return category; }
+    public void setCategory(CategoryEntity category) { this.category = category; }
 
-    public int getStock() {
-        return stock;
-    }
+    public UserEntity getOwner() { return owner; }
+    public void setOwner(UserEntity owner) { this.owner = owner; }
 
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
+    public String getBrand() { return brand; }
+    public void setBrand(String brand) { this.brand = brand; }
 
-    public double getPrice() {
-        return price;
-    }
+    public Double getWeight() { return weight; }
+    public void setWeight(Double weight) { this.weight = weight; }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    public Double getLength() { return length; }
+    public void setLength(Double length) { this.length = length; }
 
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
+    public Double getWidth() { return width; }
+    public void setWidth(Double width) { this.width = width; }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
+    public Double getHeight() { return height; }
+    public void setHeight(Double height) { this.height = height; }
 
-    public CategoryEntity getCategory() {
-        return category;
-    }
+    public String getProductCondition() { return productCondition; }
+    public void setProductCondition(String productCondition) { this.productCondition = productCondition; }
 
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
-    }
+    public Double getRating() { return rating; }
+    public void setRating(Double rating) { this.rating = rating; }
 
-    public UserEntity getOwner() {
-        return owner;
-    }
+    public boolean isVisible() { return isVisible; }
+    public void setVisible(boolean isVisible) { this.isVisible = isVisible; }
 
-    public void setOwner(UserEntity owner) {
-        this.owner = owner;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public Double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
-
-    public Double getLength() {
-        return length;
-    }
-
-    public void setLength(Double length) {
-        this.length = length;
-    }
-
-    public Double getWidth() {
-        return width;
-    }
-
-    public void setWidth(Double width) {
-        this.width = width;
-    }
-
-    public Double getHeight() {
-        return height;
-    }
-
-    public void setHeight(Double height) {
-        this.height = height;
-    }
-
-    public String getProductCondition() {
-        return productCondition;
-    }
-
-    public void setProductCondition(String productCondition) {
-        this.productCondition = productCondition;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public boolean isVisible() {
-        return isVisible;
-    }
-
-    public void setVisible(boolean isVisible) {
-        this.isVisible = isVisible;
-    }
-
-    public List<String> getImagesPath() {
-        return imagesPath;
-    }
-
-    public void setImagesPath(List<String> imagesPath) {
-        this.imagesPath = imagesPath;
-    }
-
-
+    public List<String> getImagesPath() { return imagesPath; }
+    public void setImagesPath(List<String> imagesPath) { this.imagesPath = imagesPath; }
 
 }

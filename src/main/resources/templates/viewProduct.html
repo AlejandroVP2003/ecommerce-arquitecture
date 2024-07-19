@@ -7,7 +7,7 @@
     <title>Arequi-commerce</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body class="bg-warning-subtle" style="padding-top: 5%;">
 
@@ -27,15 +27,19 @@
                     <a th:href="@{/login}" ><button type="button" class="btn btn-outline-dark border-2 me-3">Ingresar</button></a>
                     <a th:href="@{/register}"><button type="button" class="btn btn-outline-dark border-2">Registrarse</button></a>
                 </div>
-                <div th:if="${session.user != null}" class="dropdown text-end">
-                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://w7.pngwing.com/pngs/741/68/png-transparent-user-computer-icons-user-miscellaneous-cdr-rectangle-thumbnail.png" alt="mdo" width="32" height="32" class="rounded-circle border border-2 border-black">
+                <div th:if="${session.user != null}" class="dropdown text-end d-flex">
+                    <a href="#" th:href="@{/viewCar}" class="btn btn-warning border-2 border-black me-4" data-toggle="tooltip" data-placement="top" title="Carrito de Compras">
+                        <img style="height: 22px; width: 22px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVR4nO2aPWgUQRiGn0A0kBQWIkgOIWXAdJb+tebPVBIuSLQTsdBKUiqiWKRREtIIgrnWKmlSxDtC7ISQIilsvEatoiYRtFBWBkYIy3E3sztz+WZ3Hnjqb9732N3b7w4ikUgkEvkEJCn/AB+BBeBs0St63aKAo34DRigwtzsUoGwCJygoQwYFKKcpESeBV6kCapSMiy0ug1LRB/xKlXCOkrGRKqBKyXiaKuA7sAu8B1aBZeAl8Bh4ANwCrgOX9aOzAvQTMGOGTwgT1eX0BdgBNoEV4A3wAngE3AdmgUngEnAeGAR6jrOAU/pboasSgixvW0ABWf0NfAWu5ClgUUCQvOZ6elUFBMjjj7yXQkVAiDyqe0ZumgKCZHXJRQE1AUGyes9FAXcFBMnqVRcFjAgIktXTLgroAfYEhLH1Mw5ZERDI1jWXBcwJCGTrvM8FSRKAat/pdUGSCPcCnhckiWD/AgOuC3gmIJip6ocd0QuSxLNvi7wgSQxUazovbAsIZ+INXwUsCghn4rCvAqoCwpmswnp9FVARELCTW3imKSBkO9XG2Cs1ASHb+dB3AXcEhGznNd8FnBH8XrCn31u8MycgbCtv0kVmgA/6sXOcoX/q9fdoN8NHIpHIf6aAhr4ZKev6t/pQ51jxvM3dWf3FJrQ51p9Ip0fUREBzrGkYHOxdQHOsOTQ42EFAc7wcbD+gOdbUDQ62HtAcayYNDjYe0Bwn/yY96pMA52RiQt+FD7Xrnj6Rbs2JRCKRCEXnH2xKsDU8Ew7VAAAAAElFTkSuQmCC">
                     </a>
-                    <ul class="dropdown-menu text-small mt-2">
-                        <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" th:href="@{/logout}">Cerrar sesión</a></li>
-                    </ul>
+                    <a href="#" th:href="@{/}" class="btn btn-warning border-2 border-black me-4" data-toggle="tooltip" data-placement="top" title="Productos Comprados">
+                        <img style="height: 22px; width: 22px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAACVklEQVR4nO2ZsWsUYRBHXwwaO40gWKiItZGAnbGwsNJEbUQ8Lawk6ezUTgin6WwSQQhY5CobQewkJkZLgyaQRpCYP0BFI8TCcDIwB2G4ZL8Nd7f37XwPpjm4/c2925vbnYVEIpFIJBqsAnVT/4AvwCRwhJLzvImArfUDGKDE3M4QIPUN2EtJOREgQOp64PHqBVbL2AdMm4PXPAkQhpr8DFwJ6AM2TMCxFgrIQyEChAUTUKF1zfYQRm+RAh6ZgKmA94Q2ezqwh1tFCrhoApYC3hPa7ApwWWfNVWAMeKiSXwIfdO4UNgOEA3pV2AjYBA7hZAg2WDIhcla4EjBlQqreBFRMyII3AUdNyF9gvycBwpoJksntSkDNBN3zJmDMBL3yJmCgyZJkjycBPcB3E3bKkwDhtQkbxZmA+yZsxpuAcyZs1ZuAvsAFSWkFCO9N4A2cCXhsAie9CbhkAj97E3BQlyKNwE19zY0AYTljQVJ6AU8zFiSlF1Axoe+8CThuQjf0GmGrgJ96wyQXS1+BT8BHYA54o1vfF/pk+hnwBJjQrbDcat8F7uiD22u6Nb4AnAfOAIPASX2u2d9kDrWdNSPhLM6oGQHT+kDVDaMF/9azarv7lJZxWJej9S4tmS1t50EXfNDtSoZnR7gJLHbh2SD/DolEItExrgDzwB8tueQdiTgnFxM7TONqhDm5v5Gsv6ThiHJyMx/Q2NuIcnKzHtDY74hy2tLYr4hycjMX0NhsRDm5GQloTFbpseTsiuoOTY1HmLMrhnUKr2vNtukb6VROIpFIJCgr/wF/niCEZyiErgAAAABJRU5ErkJggg==">
+                    </a>
+                    <a href="#" th:href="@{/}" class="btn btn-warning border-2 border-black me-4" data-toggle="tooltip" data-placement="top" title="Inventario">
+                        <img style="height: 22px; width: 22px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABRklEQVR4nO2ZsUrEQBRFj4sIYrEgaGFhZWMhW9kssRF/Qdgv8BdsLW0t/YX9BRvRxsZOLG0sbARBEUTUJ+Ir9LGJYd0kE/YeuE2avDMzb5JJQEwPHWAAXHsGfq1V7ACXgIVcAbvADInTB05HCMRcANskyAYwLCEQcwJskgDrLvAxhkQU6jUhsAocA2//FPiZdx+UtToEloBD4GWCAjGvPkgrVQgsAgfAY4UCMc/AEbA8CYEFYB94qFHAQp58FXTHEZgD9oC7BgUs5N4Hdb6MQMcfWDcJFG45ufVBni0SOU+gUCuZr1pzsZYll6YLM4kEpmJG+tRPVoVIU1hVInUvG5MImhG0tFCPjEa7Ftp+0XOEAtQjqEdQj6Ae+Uav8eg8gk6IpqMuf35xydp0Zs8K7rHVJhHTVxQ0I6X/j6S2tM5+ly6EoIBPxWTfNvkhywUAAAAASUVORK5CYII=">
+                    </a>
+                    <a href="#" th:href="@{/logout}" class="btn btn-warning border-2 border-black" data-toggle="tooltip" data-placement="top" title="Cerrar Sesión">
+                        <img style="height: 22px; width: 22px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACr0lEQVR4nO2ZO2gVQRSGPzVE0PgKQhTUIoiFD2y0sjBRG7EQKxURGwtBhYCFIhZqY29hUghWISEWvhstBEHwgdhohCBERBQkiA80itGRAyewDLO7M3vv3t2R/HC4xZ45Z787rzOzkK4ngKmZPaKATE0tWFW/sJkBsVT1P29i6JHrwFZgvloPcDM2kJMZOU/HAiI9kadbMYDIcMpTbwwgHR55F/wvIAtjAJHVKU/bYgCRJTZPt2MAMbrEpumMR/vagBhdYnt1znTocMrriVqCNGLB8gl6CVgcEFN8twAXgcm6gIwD7RRXN/C8DiCHaVwyP+5XCTLeYG8kNQ+4VxXIIct3DTCVeP4X2BiQa65HsWiaDTIGtFm+Q5bPnQL5pIdvtBLkgOW3Fvhj+cgeQUGYa60AGQXmWH7Dls+zgBy7gVmBMMFyBdnr0Rv7POPv0rl0GZgd8D7BsiFeOBKOWD5vHPPHpRXARKKdD4xpFshx6/l6R2/0ecSVofnAEX/AMcxKAbFf8qr1/JPnwelcxvgfBFaWDfIB2A4sA847nl/wiNlj7TdFLFghwad03GdpKfCuQQgTjhEW/LVHPN+d21QJ8tmj9hqKAcQAJ3LirQK+xwAyCWzOiXm27iA/9Pe9/vNZJfvbOoMcTZwpXgKLMuLubyXIkcDg3XoeH02U8XZxOS3ZvR+2AmQD8FvHvJQlnQFtBeijJpQLhjRtcpQ3TQcZSKmtfCW3JD81xrEMvytlg4xpgyUU1+PEjr8zxWc58LVMkG9FVwc9e9tfnb5opezSqTJBTAkm55QuR672xAiIAkTsqe4jtvaUBTKtMmBGUg5Pd2MDMXqwsrVOl3wTE4hcOBx05OuPDUTsl+MznGy8E7GBGH3p1VbOvhhBxF5Z31fa9NopOhAxWbGSd2E7ioD8A/07a9ctxXCnAAAAAElFTkSuQmCC">
+                    </a>
                 </div>
             </div>
         </div>
@@ -173,11 +177,15 @@
                             </span>
                         </div>
                         <p><strong>Precio: </strong>S/. <span th:text="${product.price}">99.99</span></p>
-                        <p><strong>Unidades Disponibles: </strong><span th:text="${product.stock}">1</span></p>
+                        <p><strong>Unidades Disponibles: </strong><span th:text="${product.stock}">0</span></p>
                         <p class="description-product"><strong>Descripción: </strong><span th:text="${product.description}">Descripción del producto.</span></p>
-                        <div class="mt-auto d-flex  align-items-center">
-                            <input class="form-control me-3 border-black text-center" id="inputQuantity" type="number" value="1"/>
-                            <button class="btn btn-warning border border-black">Añadir al Carrito</button>
+
+                        <div class="mt-auto d-flex align-items-center">
+                            <form th:if="${session.user != null}" action="" th:action="@{/addInCar}" method="post">
+                                <input type="hidden" name="productId" th:value="${product.id}"/>
+                                <input class="form-control me-3 border-black text-center" id="inputQuantity" type="number" value="0" min="0" th:max="${product.stock}" name="quantity"/>
+                                <button class="btn btn-warning border border-black" type="submit" th:disabled="${product.stock == 0}">Añadir al Carrito</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -228,7 +236,6 @@
                     </div>
                 </div>
             </div>    
-        
         </div>
 
     </main>
@@ -238,24 +245,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="../scripts/scripts.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const imageExtensions = ["jpg", "jpeg", "png", "gif", "webp"];
-            const imageElements = document.querySelectorAll('.carousel-item img, .thumbnail img');
-
-            imageElements.forEach((img) => {
-                const baseSrc = img.getAttribute('data-base-src');
-                const ext = imageExtensions.find(ext => {
-                    const tempImg = new Image();
-                    tempImg.src = baseSrc + '.' + ext;
-                    return tempImg.complete && tempImg.naturalHeight !== 0;
-                });
-
-                if (ext) {
-                    img.src = baseSrc + '.' + ext;
-                }
-            });
-        });
-    </script>
 </body>
 </html>

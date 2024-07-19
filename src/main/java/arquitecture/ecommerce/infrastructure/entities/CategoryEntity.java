@@ -33,29 +33,16 @@ public class CategoryEntity {
     @Column(nullable = true)
     private Set<CategoryEntity> subcategories;
     
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public CategoryEntity getParentCategory() {
-        return parentCategory;
-    }
-    public void setParentCategory(CategoryEntity parentCategory) {
-        this.parentCategory = parentCategory;
-    }
-    public Set<CategoryEntity> getSubcategories() {
-        return subcategories;
-    }
-    public void setSubcategories(Set<CategoryEntity> subcategories) {
-        this.subcategories = subcategories;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public CategoryEntity getParentCategory() { return parentCategory; }
+    public void setParentCategory(CategoryEntity parentCategory) { this.parentCategory = parentCategory; }
+
+    public Set<CategoryEntity> getSubcategories() { return subcategories; }
+    public void setSubcategories(Set<CategoryEntity> subcategories) { this.subcategories = subcategories; }
     
 }

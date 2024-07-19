@@ -18,36 +18,16 @@ public class Category {
         this.subcategories = subcategories;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getName() {
-        return name;
-    }
+    public Category getParentCategory() { return parentCategory; }
+    public void setParentCategory(Category parentCategory) { this.parentCategory = parentCategory; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Category getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
-    }
-
-    public Set<Category> getSubcategories() {
-        return subcategories;
-    }
-
-    public void setSubcategories(Set<Category> subcategories) {
-        this.subcategories = subcategories;
-    }
+    public Set<Category> getSubcategories() { return subcategories; }
+    public void setSubcategories(Set<Category> subcategories) { this.subcategories = subcategories; }
     
 }

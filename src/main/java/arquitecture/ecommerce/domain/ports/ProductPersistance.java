@@ -10,9 +10,7 @@ public interface ProductPersistance {
     List<Product> getAllProducts();
     Product getProductById(Long id);
     List<Product> getProductsByName(String name);
-
     List<Product> getLastSixProducts();
     List<Product> getProductsByCategory(Category category);
-
     void saveProduct(Product product);
 }
